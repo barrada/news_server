@@ -123,4 +123,30 @@ Recipes.getPage= async(page)=>{
 	return Recipes.test
 }
 
+// get single post
+
+select_single= async()=>{
+	const result = await new Promise((resolve, reject) => {
+		db.query(single_query, (err, res) => {
+		return void err ? reject(err) : resolve(res)
+		})
+	})
+	return result
+}
+getsingledata=async()=>{
+	result= await select_single()
+	// console.log(result)
+	return result
+	
+}
+
+Recipes.getSingle=async(slug)=>{
+
+
+	single_query = `SELECT * FROM ${table} WHERE slug = '${slug}'`
+	SingleRecipe={"data":await getsingledata()}
+	return SingleRecipe
+}
+
+// 
 module.exports=Recipes;

@@ -8,6 +8,16 @@ recipesController.recipes= async function(req, res, next){
 		res.json(recipes);   
 		
 }
+
+// get Single post with slug
+recipesController.single=async function(req, res, next){
+	slug=await req.params.slug
+	const post= await Recipes.getSingle(slug);
+	res.json(post);   
+	
+}
+
+
 // get one post by slug
 // postsController.getPost= async function(req, res, next){
 //     try{

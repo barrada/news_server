@@ -11,6 +11,7 @@ const recipesController=require('../controllers/recipesController');
 
 router.get('/',recipesController.recipes);
 router.get('/:page',recipesController.recipes);
+router.get('/single/:slug',recipesController.single);
 // router.get('/:page',recipesController.recipes);
 
 // router.get('/',recipesController.recipes);
