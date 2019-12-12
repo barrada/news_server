@@ -11,15 +11,7 @@ var mysql = require('mysql');
 
 // remote
 
-// var con = mysql.createConnection({
-//   host: "us-cdbr-iron-east-05.cleardb.net",
-//   user: "b11547e48556c8",
-//   password: "c33ae484",
-//   database:"heroku_4a5d2a3c2d59274"
-// });
-
-var con = mysql.createPool({
-  connectionLimit : 3,
+var con = mysql.createConnection({
   host: "us-cdbr-iron-east-05.cleardb.net",
   user: "b11547e48556c8",
   password: "c33ae484",
