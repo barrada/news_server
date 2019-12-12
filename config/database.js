@@ -11,7 +11,15 @@ var mysql = require('mysql');
 
 // remote
 
-var con = mysql.createConnection({
+// var con = mysql.createConnection({
+//   host: "us-cdbr-iron-east-05.cleardb.net",
+//   user: "b11547e48556c8",
+//   password: "c33ae484",
+//   database:"heroku_4a5d2a3c2d59274"
+// });
+
+var con = mysql.createPool({
+  connectionLimit : 3,
   host: "us-cdbr-iron-east-05.cleardb.net",
   user: "b11547e48556c8",
   password: "c33ae484",
@@ -19,10 +27,8 @@ var con = mysql.createConnection({
 });
 
 con.connect(function(err) {
-  if(err) {                                   
-    console.log('error when connecting to db:', err);
-    setTimeout(handleDisconnect, 2000); 
-  }
+  if (err) throw err;
+  console.log("Connected!");
 });
 
 module.exports=con
