@@ -19,8 +19,10 @@ var con = mysql.createConnection({
 });
 
 con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
+  if(err) {                                   
+    console.log('error when connecting to db:', err);
+    setTimeout(handleDisconnect, 2000); 
+  }
 });
 
 module.exports=con
