@@ -11,7 +11,7 @@ table='posts_copy1'
 
 // get All Posts count
 
-rowCount=`SELECT count(*) as numRows FROM ${table} WHERE status=1 AND id NOT IN (select * from (select id from ${table} where status=1 AND featured=1 ORDER BY id DESC LIMIT 5) as t1)`
+rowCount=`SELECT count(*) as numRows FROM ${table} WHERE  type="recipes" AND status=1 AND id NOT IN (select * from (select id from ${table} where type="recipes" AND status=1 AND featured=1 ORDER BY id DESC LIMIT 5) as t1)`
 
 db.query(rowCount,function(err,count){
 		 postsCount=count[0].numRows
@@ -65,7 +65,7 @@ Recipes.getAll = async(page) =>{
 
 
 	// query=`Select * from ${table} ORDER BY id DESC LIMIT ${from}, ${to}`;
-	query=`Select * from ${table} WHERE status=1 AND id NOT IN (select * from (select id from ${table} where status=1 AND featured=1 ORDER BY id DESC LIMIT 5) as t1) ORDER BY id DESC LIMIT ${from}, ${perPage}`;
+	query=`Select * from ${table} WHERE type="recipes" AND status=1 AND id NOT IN (select * from (select id from ${table} where type="recipes" AND status=1 AND featured=1 ORDER BY id DESC LIMIT 5) as t1) ORDER BY id DESC LIMIT ${from}, ${perPage}`;
 	// query=`Select * from ${table} ORDER BY id DESC LIMIT ${perPage} OFFSET ${from}`;
 
 	select= async()=>{
@@ -86,7 +86,7 @@ Recipes.getAll = async(page) =>{
 	// 	db.query(query,function (err, data) {
 	// 		if (err) throw err;					
 	// 	 })		
-	featured_query = `SELECT * from ${table} WHERE status = 1 and featured = 1 ORDER BY id DESC LIMIT 5`
+	featured_query = `SELECT * from ${table} WHERE type="recipes" AND status = 1 and featured = 1 ORDER BY id DESC LIMIT 5`
 
 	select_fearured= async()=>{
 		const result = await new Promise((resolve, reject) => {
@@ -135,15 +135,12 @@ select_single= async()=>{
 }
 getsingledata=async()=>{
 	result= await select_single()
-	// console.log(result)
-	return result
-	
+	return result	
 }
 
 Recipes.getSingle=async(slug)=>{
-
-
 	single_query = `SELECT * FROM ${table} WHERE slug = '${slug}'`
+
 	SingleRecipe={"data":await getsingledata()}
 	return SingleRecipe
 }
