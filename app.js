@@ -26,14 +26,15 @@ app.use('/uploads', express.static(__dirname + '/public/uploads'))
 var indexRouter = require('./routes/index');
 var recipesRouter = require('./routes/recipes');
 var postsRouter = require('./routes/posts');
+var postRouter = require('./routes/post');
 var publishRouter = require('./routes/publish');
 
 
 app.use('/api', indexRouter);
 app.use('/api/recipes/', recipesRouter);
-app.use('/api/publish/', publishRouter);
 app.use('/api/posts/', postsRouter);
-
+app.use('/api/post/', postRouter);
+app.use('/api/publish/', publishRouter);
 // app.get("/", (req, res) => {
 //   res.status(200).send("WHATABYTE: Food For Devs");
 // });

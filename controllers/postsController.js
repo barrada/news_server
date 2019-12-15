@@ -11,5 +11,12 @@ postsController.posts= async function(req, res, next){
 	res.json(posts);   	
 }
 
+// get Single post with slug
+postsController.single=async function(req, res, next){
+	slug=await req.params.slug
+	const post= await Posts.getSingle(slug);
+	res.json(post);   
+	
+}
 
 module.exports = postsController;
