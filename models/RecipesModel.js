@@ -8,7 +8,8 @@ const db = require('../config/database');
 const Recipes={};
 
 table='posts_copy1'
-
+// define number of posts per page
+const perPage = 20;
 // get All Posts count
 
 rowCount=`SELECT count(*) as numRows FROM ${table} WHERE  type="recipes" AND status=1 AND id NOT IN (select * from (select id from ${table} where type="recipes" AND status=1 AND featured=1 ORDER BY id DESC LIMIT 5) as t1)`
@@ -18,8 +19,8 @@ db.query(rowCount,function(err,count){
 		 pageCount = Math.ceil(postsCount / perPage);
 })
 
-// define number of posts per page
-const perPage = 20;
+
+
 // let page = parseInt(req.params.p);
 // const pageCount = Math.ceil(postsCount / perPage);
 
