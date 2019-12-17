@@ -2,8 +2,16 @@ const db = require('../config/database');
 
 const Posts={};
 table='posts_copy1'
-const perPage = 20;
+
 // Count posts excluding featured for pagination
+const perPage = 20;
+
+// rowCount=`SELECT count(*) as numRows FROM ${table} WHERE type="${type}" AND status=1 AND id NOT IN (select * from (select id from ${table} where type="${type}" AND  status=1 AND featured=1 ORDER BY id DESC LIMIT 5) as t1)`
+
+// db.query(rowCount,function(err,count){
+// 		postsCount=count[0].numRows
+// 		pageCount = Math.ceil(postsCount / perPage);
+// })
 
 
 // Get All Posts
@@ -12,12 +20,20 @@ const perPage = 20;
 Posts.getAll = async(type,page)=>{
 
 	rowCount=`SELECT count(*) as numRows FROM ${table} WHERE type="${type}" AND status=1 AND id NOT IN (select * from (select id from ${table} where type="${type}" AND  status=1 AND featured=1 ORDER BY id DESC LIMIT 5) as t1)`
-
-	db.query(rowCount,function(err,count){
-			postsCount=count[0].numRows
-			pageCount = Math.ceil(postsCount / perPage);
-	})
-
+	row_promise=async()=>{
+		const result = await new Promise((resolve, reject) => {
+  	  db.query(rowCount, (err, count) => {
+      return void err ? reject(err) : resolve(count[0].numRows)
+   	 })
+		})
+		return result
+	}
+	postsCount=async()=>{
+		result= await row_promise()		
+		return result		
+	}
+	pageCount = Math.ceil(await postsCount() / perPage);
+	// khatrafa ends
 	// default to page 1
 	if (!page) { page = 1;}
 	if (page > pageCount) {
@@ -62,7 +78,7 @@ Posts.getAll = async(type,page)=>{
 	// return all results
 	Posts.All=({
 		"page":Number(page),			
-		"postsCount": postsCount,
+		"postsCount": await postsCount(),
 		"pageCount":pageCount,
 		"featured":await getfeatured(),
 		"data":await getdata()
