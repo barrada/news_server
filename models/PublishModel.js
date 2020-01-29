@@ -8,8 +8,8 @@ table='posts_copy1'
 Publish.publish=async(title,slug,type,thumbnail,tags,keywords,excert,html,featured)=>{
 	// single_query = `SELECT * FROM ${table} WHERE slug = '${slug}'`
 
-slug=this.slug
-	return slug
+
+	return this.slug
 }
 
 module.exports=Publish;
