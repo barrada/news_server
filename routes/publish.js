@@ -9,12 +9,14 @@ router.post('/', function(req, res, next) {
     {
       'title':req.body.title,
       'slug':req.body.slug,
-      'slug':req.body.type,
-      'slug':req.body.thumbnail,
-      'slug':req.body.tags,
-      'slug':req.body.keywords,
-      'slug':req.body.excert,
-      'slug':req.body.html
+      'type':req.body.type,
+      'thumbnail':req.body.thumbnail,
+      'tags':req.body.tags,
+      'keywords':req.body.keywords,
+      'excert':req.body.excert,
+      'html':req.body.html,
+      'featured':eq.body.featured
+      
     }
     );
 });
