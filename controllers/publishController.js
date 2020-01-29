@@ -19,4 +19,4 @@ publishController.publish=async function(req, res, next){
 	
 }
 
-module.exports = postController;
+module.exports = publishController;
