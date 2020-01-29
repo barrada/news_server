@@ -15,7 +15,7 @@ publishController.publish=async function(req, res, next){
 	featured = req.body.featured
 
 	const publish= await Publish.publish(title,slug,type,thumbnail,tags,keywords,excert,html,featured);
-	res.status(201);   
+	res.status(201).json(publish);   
 	
 }
 
