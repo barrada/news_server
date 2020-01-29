@@ -15,7 +15,7 @@ router.post('/', function(req, res, next) {
       'keywords':req.body.keywords,
       'excert':req.body.excert,
       'html':req.body.html,
-      'featured':eq.body.featured
+      'featured':req.body.featured
       
     }
     );
