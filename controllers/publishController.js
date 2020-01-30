@@ -4,17 +4,17 @@ const Publish=require('../models/PublishModel');
 // get Single post with slug
 publishController.publish=async function(req, res, next){
 
-	this.title = req.body.title,
-	this.slug = req.body.slug,
-	this.type = req.body.type,
-	this.thumbnail = req.body.thumbnail,
-	this.tags = req.body.tags,
-	this.keywords = req.body.keywords,
-	this.excert = req.body.excert,
-	this.html = req.body.html,
-	this.featured = req.body.featured
+	title = await req.body.title,
+	slug = await req.body.slug,
+	type = await req.body.type,
+	thumbnail = await req.body.thumbnail,
+	tags = await req.body.tags,
+	keywords = await req.body.keywords,
+	excert =await  req.body.excert.replace(/'/g, '\\\''),
+	html = await req.body.html.replace(/'/g, '\\\''),
+	featured = await req.body.featured
 
-	const publish= await Publish.publish(this.title,this.slug,this.type,this.thumbnail,this.tags,this.keywords,this.excert,this.html,this.featured);
+	const publish= await Publish.publish(title,slug,type,thumbnail,tags,keywords,excert,html,featured);
 	res.status(201).json(publish);   
 	
 }
